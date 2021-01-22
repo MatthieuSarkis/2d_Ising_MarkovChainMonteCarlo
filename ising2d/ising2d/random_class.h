@@ -8,72 +8,70 @@
 class Rand
 {
 protected:
-	std::mt19937 rgen_;
+	std::mt19937 m_rgen;
 
 public:
 
 	Rand();
 	Rand(unsigned int seed);
 
-	void SetSeed(unsigned int seed);
-	void SetSeed();
-	double NextDouble();
-  double NextNormal(double = 0, double = 1);
-	int NextInt(int first, int last);
-	int NextInt(int last);
+	void set_Seed(unsigned int seed);
+	void set_Seed();
+	double nextDouble();
+  double nextNormal(double = 0, double = 1);
+	int nextInt(int first, int last);
+	int nextInt(int last);
 
-	std::mt19937& GetRgen();
+	std::mt19937& get_Rgen();
 };
-
-
 
 Rand::Rand()
 {
-	SetSeed();
+	set_Seed();
 }
 
 Rand::Rand(unsigned int seed)
 {
-	SetSeed(seed);
+	set_Seed(seed);
 }
 
-inline void Rand::SetSeed(unsigned int seed)
+inline void Rand::set_Seed(unsigned int seed)
 {
-	rgen_.seed(seed);
+	m_rgen.seed(seed);
 }
 
-inline void Rand::SetSeed()
+inline void Rand::set_Seed()
 {
 #ifdef _WIN32
-	rgen_.seed((unsigned int)time(nullptr));
+  m_rgen.seed((unsigned int)time(nullptr));
 #else
-	rgen_.seed(std::random_device{}());
+  m_rgen.seed(std::random_device{}());
 #endif
 }
 
-inline double Rand::NextDouble()
+inline double Rand::nextDouble()
 {
-	return std::uniform_real_distribution<>(0, 1.0)(rgen_);
+	return std::uniform_real_distribution<>(0, 1.0)(m_rgen);
 }
 
-inline double Rand::NextNormal(double mean, double stddev)
+inline double Rand::nextNormal(double mean, double std)
 {
-	return std::normal_distribution<>(mean, stddev)(rgen_);
+	return std::normal_distribution<>(mean, std)(m_rgen);
 }
 
-inline int Rand::NextInt(int first, int last)
+inline int Rand::nextInt(int first, int last)
 {
-	return std::uniform_int_distribution<>(first, last-1)(rgen_);
+	return std::uniform_int_distribution<>(first, last)(m_rgen);
 }
 
-inline int Rand::NextInt(int last)
+inline int Rand::nextInt(int last)
 {
-	return  std::uniform_int_distribution<>(0, last-1)(rgen_);
+	return  std::uniform_int_distribution<>(0, last)(m_rgen);
 }
 
-inline std::mt19937& Rand::GetRgen()
+inline std::mt19937& Rand::get_Rgen()
 {
-	return rgen_;
+	return m_rgen;
 }
 
 #endif

@@ -1,22 +1,24 @@
-#ifndef PARAMS_H_
-#define PARAMS_H_
+#ifndef params_h
+#define params_h
 
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////// JUST CHANGE THIS PART //////
-int max_n_realizations = 2;
-int L = 3;
-float T_down = 3, T_up = 3, dT = 0.05;
-bool Tc_is_considered = true;
-bool use_last_config_per_temperature = true;
-int equilib_steps_1st = 1000;
-int equilib_steps_2nd = 100;
-int steps_per_sample = 10;
-int n_samples_per_realization = 2;
+#include <math.h>
 
-////////////////////////////////////////////////////////////////////
+float T_critical(int L)
+{
+    float Tc = 2 / log(1 + sqrt(2));
+    return Tc / (1 + 5 / (4.0 * L));
+}
 
+int n_steps_initial = 1000;
+int n_steps_generation = 10;
+int n_steps_thermalize = 100;
+int L = 128;
 
-#endif
+float Tc = T_critical(L);
 
+int n_data_per_temp = 10;
+float T_min = 1.8;
+float T_max = 3.0;
+float dT = 0.012;
 
-
+#endif /* params_h */
