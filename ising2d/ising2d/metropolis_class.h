@@ -170,20 +170,28 @@ inline int Metropolis::get_magnetization()
 
 void Metropolis::save_spin_lattice(ofstream& file, bool row, bool binary)
 {
-  if (row)
+  if (binary)
   {
-    for (int i = 0; i < m_L * m_L; i++)
-    {
-      file << ((int)m_spin[i] + 1) / 2;
-    }
+    file.write((char*)m_spin.data(), m_L*m_L*sizeof(&m_spin));
   }
   
   else
   {
-    for (int i = 0; i < m_L * m_L; i++)
+    if (row)
     {
-      file << ((int)m_spin[i] + 1) / 2;
-      if (i != m_L * m_L - 1 && (i+1) % m_L == 0) file << "\n";
+      for (int i = 0; i < m_L * m_L; i++)
+      {
+        file << ((int)m_spin[i] + 1) / 2;
+      }
+    }
+    
+    else
+    {
+      for (int i = 0; i < m_L * m_L; i++)
+      {
+        file << ((int)m_spin[i] + 1) / 2;
+        if (i != m_L * m_L - 1 && (i+1) % m_L == 0) file << "\n";
+      }
     }
   }
 }

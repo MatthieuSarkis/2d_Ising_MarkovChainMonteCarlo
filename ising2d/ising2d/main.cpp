@@ -18,49 +18,26 @@
 
 using namespace std;
 
-
-
- 
+bool isSame(float x, float y)
+{
+  return fabs(x - y) < 10e-6;
+}
 
 int main()
 {
   float Tc = 2 / log(1 + sqrt(2));
   
-  int L=128;
+  int L=4;
   unsigned seed = static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count());
-  Metropolis model(L, Tc);
-  model.set_seed(seed);
-  model.initialize_spins();
-  for (int i = 0; i < 100; i++)
-  {
-    model.one_step_evolution();
-  }
   
-  ofstream file("./test.txt", ios::out);
-  
-  model.save_spin_lattice(file, false, false);
-  
-  file.close();
-  
-  return 0;
-  
-  int n_steps_initial = 1000;
+  int n_steps_initial = /*1000*/ 10;
   int n_steps_generation = 10;
-  int n_steps_thermalize = 100;
-  //int L = 128;
-
-
+  int n_steps_thermalize = /*100*/ 10;
   int n_data_per_temp = 10;
   float T_min = 1.8;
   float T_max = 3.0;
   float dT = 0.012;
   
-  
-  
-  
-  //unsigned seed = static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count());
-
-  // We create the vector containing all the temperatures, including the critical temperature, and order it in decreasing order.
   vector<float> T;
   for (int i = 0; i <= (int)((T_max - T_min) / dT); i++)
   {
@@ -69,40 +46,42 @@ int main()
   T.push_back(Tc);
   sort(T.begin(), T.end(), greater<float>());
   
+  Metropolis model(L, T_max);
+  model.set_seed(seed);
+  model.initialize_spins();
+  int n_steps = 0;
   
-  
-  
-  
-
-  /*
-  for (int j = 0; j < T.size(); j++)
+  for (int i = 0; i < T.size(); i++)
   {
-    //To see where at the progress
-    cout << "Temperature number: " << j+1 << "/" << T.size() << endl;
     
-    // We create the name of the file for the temperature T
     string file_name;
     stringstream ss;
     ss.setf(ios::fixed);
     ss << setprecision(4);
-    ss << "(L=" << L << ",T=" << T[j] << ')';
+    ss << "(L=" << L << ",T=" << T[i] << ')';
     file_name = ss.str();
     
-    // we instanciate an ofstream object and open the binary file for the given temperature
-    ofstream file(("./data/" + file_name + ".bin").c_str(), ios::out | ios::binary);
+    ofstream file(("./data/" + file_name + ".bin").c_str(), ios::out/* | ios::binary*/);
     
+    n_steps = (i == 0 || isSame(fabs(T[i] - Tc), dT)) ? n_steps_initial : n_steps_thermalize;
     
-     
+    for (int j = 0; j < n_steps; j++)
+    {
+      model.one_step_evolution();
+    }
+          
+    for (int j = 0; j < n_data_per_temp; j++)
+    {
+      for (int k = 0; k < n_steps_generation; k++)
+      {
+        model.one_step_evolution();
+        model.save_spin_lattice(file, true, false);
+      }
+    }
     
-    
-    
-    
-    
-    
-    //file.close();
+    file.close();
     
   }
-  */
   
   return 0;
 }
