@@ -172,7 +172,7 @@ void Metropolis::save_spin_lattice(ofstream& file, bool row, bool binary)
 {
   if (binary)
   {
-    file.write((char*)m_spin.data(), m_L*m_L*sizeof(&m_spin));
+    file.write((char*)&m_spin, m_L*m_L*sizeof(int8_t));
   }
   
   else
@@ -183,6 +183,7 @@ void Metropolis::save_spin_lattice(ofstream& file, bool row, bool binary)
       {
         file << ((int)m_spin[i] + 1) / 2;
       }
+      file << "\n";
     }
     
     else
@@ -190,7 +191,8 @@ void Metropolis::save_spin_lattice(ofstream& file, bool row, bool binary)
       for (int i = 0; i < m_L * m_L; i++)
       {
         file << ((int)m_spin[i] + 1) / 2;
-        if (i != m_L * m_L - 1 && (i+1) % m_L == 0) file << "\n";
+        if ((i+1) % m_L == 0) file << "\n";
+        if (i == m_L * m_L - 1) file << "\n";
       }
     }
   }

@@ -27,13 +27,13 @@ int main()
 {
   float Tc = 2 / log(1 + sqrt(2));
   
-  int L=4;
+  int L = 128;
   unsigned seed = static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count());
   
-  int n_steps_initial = /*1000*/ 10;
+  int n_steps_initial = 1000;
   int n_steps_generation = 10;
-  int n_steps_thermalize = /*100*/ 10;
-  int n_data_per_temp = 10;
+  int n_steps_thermalize = 100;
+  int n_data_per_temp = 1000;
   float T_min = 1.8;
   float T_max = 3.0;
   float dT = 0.012;
@@ -61,7 +61,7 @@ int main()
     ss << "(L=" << L << ",T=" << T[i] << ')';
     file_name = ss.str();
     
-    ofstream file(("./data/" + file_name + ".bin").c_str(), ios::out/* | ios::binary*/);
+    ofstream file(("/Users/matthieu.sarkis/git_repos/data_2d_Ising_MarkovChainMonteCarlo/" + file_name + ".bin").c_str(), ios::out | ios::binary);
     
     n_steps = (i == 0 || isSame(fabs(T[i] - Tc), dT)) ? n_steps_initial : n_steps_thermalize;
     
@@ -75,7 +75,7 @@ int main()
       for (int k = 0; k < n_steps_generation; k++)
       {
         model.one_step_evolution();
-        model.save_spin_lattice(file, true, false);
+        model.save_spin_lattice(file, false, true);
       }
     }
     
