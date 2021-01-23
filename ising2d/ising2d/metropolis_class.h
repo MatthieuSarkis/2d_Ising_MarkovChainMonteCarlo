@@ -96,7 +96,7 @@ void Metropolis::compute_and_set_magnetization()
     M += m_spin[i];
   }
   m_M = M;
-  m_M_history.push_back(M);
+  //m_M_history.push_back(M);
 }
 
 inline void Metropolis::set_energy(int E)
@@ -118,7 +118,7 @@ void Metropolis::compute_and_set_energy()
     E -= m_spin[i] * (m_spin[right_nbr] + m_spin[up_nbr]);
   }
   m_E = E;
-  m_E_history.push_back(E);
+  //m_E_history.push_back(E);
 }
 
 void Metropolis::one_step_evolution()
@@ -154,8 +154,8 @@ void Metropolis::one_step_evolution()
   m_M = M;
   m_history += 1;
   
-  m_E_history.push_back(E);
-  m_M_history.push_back(M);
+  //m_E_history.push_back(E);
+  //m_M_history.push_back(M);
 }
 
 inline int Metropolis::get_energy()

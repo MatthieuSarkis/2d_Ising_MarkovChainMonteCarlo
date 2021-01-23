@@ -26,6 +26,7 @@
 		E941117E25B9504600240B58 /* ising2d */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ising2d; sourceTree = BUILT_PRODUCTS_DIR; };
 		E941118B25B955F600240B58 /* random_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = random_class.h; sourceTree = "<group>"; };
 		E941119025B955F600240B58 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E9BC505C25BC39EE00CC3616 /* progress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = progress.h; sourceTree = "<group>"; };
 		FF794DE925BBC61500F67821 /* metropolis_class.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metropolis_class.h; sourceTree = "<group>"; };
 		FF794DEA25BBC62700F67821 /* write_plot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = write_plot.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,6 +63,7 @@
 			children = (
 				E941119025B955F600240B58 /* main.cpp */,
 				FF794DE925BBC61500F67821 /* metropolis_class.h */,
+				E9BC505C25BC39EE00CC3616 /* progress.h */,
 				FF794DEA25BBC62700F67821 /* write_plot.h */,
 				E941118B25B955F600240B58 /* random_class.h */,
 			);

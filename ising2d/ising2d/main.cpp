@@ -5,7 +5,6 @@
 //  Created by matthieu.sarkis on 2021/01/22.
 //
 
-#include "metropolis_class.h"
 #include <cstdint>
 #include <vector>
 #include <algorithm>
@@ -15,6 +14,9 @@
 #include <random>
 #include <ctime>
 #include <cmath>
+
+#include "metropolis_class.h"
+#include "progress.h"
 
 using namespace std;
 
@@ -51,6 +53,8 @@ int main()
   model.initialize_spins();
   int n_steps = 0;
   
+  Progress progress((int)T.size());
+  
   for (int i = 0; i < T.size(); i++)
   {
     
@@ -75,11 +79,13 @@ int main()
       for (int k = 0; k < n_steps_generation; k++)
       {
         model.one_step_evolution();
-        model.save_spin_lattice(file, false, true);
+        model.save_spin_lattice(file, true, true);
       }
     }
     
     file.close();
+    
+    progress.Next(i);
     
   }
   
