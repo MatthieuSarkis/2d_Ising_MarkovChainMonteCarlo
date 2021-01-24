@@ -32,10 +32,10 @@ int main()
   int L = 128;
   unsigned seed = static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count());
   
-  int n_steps_initial = 1000;
+  int n_steps_initial = 10;
   int n_steps_generation = 10;
-  int n_steps_thermalize = 100;
-  int n_data_per_temp = 1000;
+  int n_steps_thermalize = 10;
+  int n_data_per_temp = 10;
   float T_min = 1.8;
   float T_max = 3.0;
   float dT = 0.012;
@@ -65,7 +65,8 @@ int main()
     ss << "(L=" << L << ",T=" << T[i] << ')';
     file_name = ss.str();
     
-    ofstream file(("/Users/matthieu.sarkis/git_repos/data_2d_Ising_MarkovChainMonteCarlo/" + file_name + ".bin").c_str(), ios::out | ios::binary);
+    ofstream file(("/Users/matthieusarkis/git_repos/data_2d_Ising_MarkovChainMonteCarlo/" + file_name + ".bin").c_str(), ios::out | ios::binary);
+    //ofstream file(("/Users/matthieu.sarkis/git_repos/data_2d_Ising_MarkovChainMonteCarlo/" + file_name + ".bin").c_str(), ios::out | ios::binary);
     
     n_steps = (i == 0 || isSame(fabs(T[i] - Tc), dT)) ? n_steps_initial : n_steps_thermalize;
     

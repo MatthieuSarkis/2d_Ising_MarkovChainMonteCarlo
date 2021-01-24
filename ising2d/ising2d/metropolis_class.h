@@ -172,7 +172,7 @@ void Metropolis::save_spin_lattice(ofstream& file, bool row, bool binary)
 {
   if (binary)
   {
-    file.write((char*)&m_spin, m_L*m_L*sizeof(int8_t));
+    file.write((char*)m_spin, m_L*m_L*sizeof(int8_t));
   }
   
   else
