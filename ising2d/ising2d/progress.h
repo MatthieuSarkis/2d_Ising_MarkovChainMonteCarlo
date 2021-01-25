@@ -1,10 +1,3 @@
-//
-//  progress.h
-//  ising2d
-//
-//  Created by matthieu.sarkis on 2021/01/23.
-//
-
 #ifndef PROGRESS_H_
 #define PROGRESS_H_
 
@@ -74,7 +67,10 @@ void Progress::Next(const int idx, std::ostream& stm)
   if (curr != prev)
   {
     PrintTimePercentage(idx, stm);
-    if (curr >= 100) stm << std::endl;
+    if (curr >= 100)
+    {
+      stm << std::endl;
+    }
   }
 }
 
