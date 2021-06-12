@@ -1,1 +1,1 @@
-# 2d_Ising_MarkovChainMonteCarlo
+Numerical simulation of the two dimensional Ising model on a square lattice.
