@@ -1,3 +1,14 @@
+// -*- coding: utf-8 -*-
+//
+// Written by Hor Dashti(Ebi), https://github.com/h-dashti
+//
+// This code is licensed under the Apache License, Version 2.0. You may
+// obtain a copy of this license in the LICENSE.txt file in the root directory
+// of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+// Any modifications or derivative works of this code must retain this
+// copyright notice, and modified files need to carry a notice indicating
+// that they have been altered from the originals.
+
 #ifndef RANDOMCLASS_H_
 #define RANDOMCLASS_H_
 
@@ -18,7 +29,7 @@ public:
 	void set_Seed(unsigned int seed);
 	void set_Seed();
 	double nextDouble();
-  double nextNormal(double = 0, double = 1);
+        double nextNormal(double = 0, double = 1);
 	int nextInt(int first, int last);
 	int nextInt(int last);
 
@@ -43,9 +54,9 @@ inline void Rand::set_Seed(unsigned int seed)
 inline void Rand::set_Seed()
 {
 #ifdef _WIN32
-  m_rgen.seed((unsigned int)time(nullptr));
+    m_rgen.seed((unsigned int)time(nullptr));
 #else
-  m_rgen.seed(std::random_device{}());
+    m_rgen.seed(std::random_device{}());
 #endif
 }
 
@@ -66,7 +77,7 @@ inline int Rand::nextInt(int first, int last)
 
 inline int Rand::nextInt(int last)
 {
-	return  std::uniform_int_distribution<>(0, last)(m_rgen);
+	return    std::uniform_int_distribution<>(0, last)(m_rgen);
 }
 
 inline std::mt19937& Rand::get_Rgen()
